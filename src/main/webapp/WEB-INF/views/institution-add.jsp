@@ -16,8 +16,9 @@
     Nazwa instytucji: <form:input path="name"/><br>
     Opis instytucji: <form:input path="description"/><br>
     <button type="submit">Zapisz</button>
-
 </form:form>
-
+<br>
+<a href="http://localhost:8080/logout">Wyloguj</a><br>
+<a href="http://localhost:8080/admin/home">Głowny panel administratora</a>
 </body>
 </html>

@@ -20,7 +20,8 @@
     Hasło: <form:input path="password" type="password"/>
     <button type="submit">Zapisz</button>
 </form:form>
-<a href="http://localhost:8080/logout">Wyloguj</a>
+<br>
+<a href="http://localhost:8080/logout">Wyloguj</a><br>
 <a href="http://localhost:8080/admin/home">Głowny panel administratora</a>
 
 </body>

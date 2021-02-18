@@ -19,6 +19,9 @@
     Nazwisko: <form:input path="lastName" value="${updateAdmin.lastName}"/>
     <button type="submit">Zapisz</button>
 </form:form>
+<br>
+<a href="http://localhost:8080/logout">Wyloguj</a><br>
+<a href="http://localhost:8080/admin/home">Głowny panel administratora</a>
 
 </body>
 </html>

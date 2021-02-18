@@ -18,7 +18,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-<<<<<<< HEAD
     <title>Oddam w dobre ręce</title>
 </head>
 <body>
@@ -28,18 +27,8 @@
     Potwierdzenie odbioru<form:checkbox path="received" value="${donation.received}"/><br>
     <button type="submit">Zapisz</button>
 </form:form>
+<br>
+<a href="http://localhost:8080/logout">Wyloguj</a><br>
+<a href="http://localhost:8080/admin/home">Głowny panel administratora</a>
 </body>
 </html>
-=======
-    <title>Title</title>
-</head>
-<body>
-<form:form action="/admin/details/${donation.id}" method="post" modelAttribute="donation">
-
-    <form:input path="dateReceived" type="date"/><br>
-    <form:checkbox path="received" value="${donation.received}"/><br>
-    <button type="submit">Zapisz</button>
-</form:form>
-</body>
-</html>
->>>>>>> origin/main

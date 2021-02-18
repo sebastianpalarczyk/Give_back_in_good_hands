@@ -13,5 +13,8 @@
 </head>
 <body>
 <h1>Dostęp zabroniony</h1>
+<br>
+<a href="http://localhost:8080/logout">Wyloguj</a><br>
+<a href="http://localhost:8080/">Strona główna</a>
 </body>
 </html>

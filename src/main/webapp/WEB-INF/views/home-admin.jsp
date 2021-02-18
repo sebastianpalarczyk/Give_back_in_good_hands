@@ -17,6 +17,8 @@
 <a href="http://localhost:8080/admin/add">Dodaj nowego administratora</a><br>
 <a href="http://localhost:8080/admin/users">Zarządznie użytkwnikami</a><br>
 <a href="http://localhost:8080/admin/user/add">Dodaj nowego użytkownika</a>
-
+<br>
+<a href="http://localhost:8080/logout">Wyloguj</a><br>
+<a href="http://localhost:8080/admin/home">Głowny panel administratora</a>
 </body>
 </html>

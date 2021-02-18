@@ -20,7 +20,8 @@
     <a href="http://localhost:8080/admin/admins/delete/${element.id}">Usuń</a><br>
 
 </c:forEach>
-<a href="http://localhost:8080/logout">Wyloguj</a>
+<br>
+<a href="http://localhost:8080/logout">Wyloguj</a><br>
 <a href="http://localhost:8080/admin/home">Głowny panel administratora</a>
 </body>
 </html>
