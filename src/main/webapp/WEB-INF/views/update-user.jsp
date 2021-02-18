@@ -44,22 +44,20 @@
             <form:input type="text" name="lastName" path="lastName" value="${userUpdate.lastName}" placeholder="Nazwisko" />
         </div>
         <div class="form-group">
-            <form:input type="password"  path="password" value="${userUpdate.password}" placeholder="Hasło" />
+            <form:input type="password"  path="password" name="password" placeholder="Hasło" />
         </div>
         <div class="form-group">
-            <input type="password" name="password2"  value = "${userUpdate.password}" placeholder="Powtórz hasło" />
+            <input type="password" name="password2"  value = "" placeholder="Powtórz hasło" />
         </div>
 
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit">Zapisz zmiany</button>
         </div>
     </form:form>
-    <a href="http://localhost:8080/logout">Wyloguj</a>
+    <br>
+    <a href="http://localhost:8080/logout">Wyloguj</a><br>
     <a href="http://localhost:8080/admin/home">Głowny panel administratora</a>
 </section>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> origin/main
+

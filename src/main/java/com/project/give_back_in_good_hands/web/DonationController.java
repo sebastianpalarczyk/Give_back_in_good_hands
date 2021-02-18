@@ -4,17 +4,12 @@ import com.project.give_back_in_good_hands.domain.Category;
 import com.project.give_back_in_good_hands.domain.Donation;
 import com.project.give_back_in_good_hands.domain.Institution;
 import com.project.give_back_in_good_hands.domain.User;
-import com.project.give_back_in_good_hands.service.CategoryService;
-import com.project.give_back_in_good_hands.service.CurrentUser;
-import com.project.give_back_in_good_hands.service.DonationService;
-import com.project.give_back_in_good_hands.service.InstitutionService;
+import com.project.give_back_in_good_hands.service.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -24,11 +19,14 @@ public class DonationController {
     private final CategoryService categoryService;
     private final InstitutionService institutionService;
     private final DonationService donationService;
+    private final UserService userService;
 
-    public DonationController(CategoryService categoryService, InstitutionService institutionService, DonationService donationService) {
+    public DonationController(CategoryService categoryService, InstitutionService institutionService,
+                              DonationService donationService, UserService userService) {
         this.categoryService = categoryService;
         this.institutionService = institutionService;
         this.donationService = donationService;
+        this.userService = userService;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -61,6 +59,30 @@ public class DonationController {
         model.addAttribute("receivedDonations", donationService.receivedDonations(donations));
         model.addAttribute("noReceivedDonations", donationService.noReceivedDonations(donations));
         return "user-donation";
+    }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+    public String updateForm(@PathVariable Long id, Model model){
+        model.addAttribute("userUpdate", userService.findUserById(id));
+        return "update-user";
+    }
+
+    @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateUser(@PathVariable Long id, @ModelAttribute User user){
+        User updateUser = userService.findUserById(id);
+        updateUser.setEmail(user.getEmail());
+        updateUser.setUsername(user.getUsername());
+        updateUser.setFirstName(user.getFirstName());
+        updateUser.setLastName(user.getLastName());
+        if(user.getPassword().isEmpty()){
+            updateUser.setPassword(updateUser.getPassword());
+            userService.save(updateUser);
+        }else{
+            updateUser.setPassword(user.getPassword());
+            userService.saveUser(updateUser);
+        }
+        return "Zapisano zmiany";
     }
 
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
