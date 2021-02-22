@@ -19,4 +19,6 @@ public interface UserService {
     VerificationToken findByToken(String token);
     void roleForUser(User user);
     VerificationToken createToken();
+    boolean checkToken(VerificationToken token);
+    VerificationToken generateNewVerificationToken(String existingVerificationToken);
 }

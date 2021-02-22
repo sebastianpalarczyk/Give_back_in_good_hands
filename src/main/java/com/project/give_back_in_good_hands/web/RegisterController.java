@@ -9,9 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.util.UUID;
-
 @Controller
 public class RegisterController {
 
@@ -48,7 +45,14 @@ public class RegisterController {
     @RequestMapping(value = "/register/{token}", method = RequestMethod.GET)
     public String confirmationRegister(@PathVariable String token){
         VerificationToken verificationToken = userService.findByToken(token);
+        boolean checkToken = userService.checkToken(verificationToken);
         User user = verificationToken.getUser();
+        if(!checkToken){
+            VerificationToken newVerificationToken = userService.generateNewVerificationToken(token);
+            emailService.sendSimpleMessage(user.getEmail(), "Nowy link aktywacyjny",
+                    "Link aktywacyjny:http://localhost:8080/register/"+newVerificationToken.getToken());
+            return "new-confirmation-register";
+        }
         userService.roleForUser(user);
         return "redirect:/login";
     }

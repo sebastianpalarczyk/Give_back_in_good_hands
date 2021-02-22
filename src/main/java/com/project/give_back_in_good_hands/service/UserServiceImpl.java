@@ -9,10 +9,7 @@ import com.project.give_back_in_good_hands.repository.VerificationTokenRepositor
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -101,6 +98,21 @@ public class UserServiceImpl implements UserService {
     public VerificationToken createToken() {
         VerificationToken token = new VerificationToken();
         token.setToken(UUID.randomUUID().toString());
+        return token;
+    }
+
+    @Override
+    public boolean checkToken(VerificationToken token) {
+        Calendar calendar = Calendar.getInstance();
+        return token.getExpiryDate().getTime() - calendar.getTime().getTime() > 0;
+    }
+
+    @Override
+    public VerificationToken generateNewVerificationToken(String existingVerificationToken) {
+        VerificationToken token = verificationTokenRepository.findByToken(existingVerificationToken);
+        token.updateToken(UUID.randomUUID()
+                .toString());
+        verificationTokenRepository.save(token);
         return token;
     }
 
