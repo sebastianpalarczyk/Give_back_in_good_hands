@@ -1,6 +1,7 @@
 package com.project.give_back_in_good_hands.service;
 
 import com.project.give_back_in_good_hands.domain.User;
+import com.project.give_back_in_good_hands.domain.VerificationToken;
 
 import java.util.List;
 
@@ -14,5 +15,8 @@ public interface UserService {
     void saveAdmin(User user);
     List<User> findAllUsers();
     void save(User user);
-
+    void createVerificationTokenForUser( User user, String token);
+    VerificationToken findByToken(String token);
+    void roleForUser(User user);
+    VerificationToken createToken();
 }

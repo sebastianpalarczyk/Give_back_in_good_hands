@@ -2,14 +2,17 @@ package com.project.give_back_in_good_hands.service;
 
 import com.project.give_back_in_good_hands.domain.Role;
 import com.project.give_back_in_good_hands.domain.User;
+import com.project.give_back_in_good_hands.domain.VerificationToken;
 import com.project.give_back_in_good_hands.repository.RoleRepository;
 import com.project.give_back_in_good_hands.repository.UserRepository;
+import com.project.give_back_in_good_hands.repository.VerificationTokenRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,11 +22,15 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final VerificationTokenRepository verificationTokenRepository;
+
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
-                           BCryptPasswordEncoder passwordEncoder) {
+                           BCryptPasswordEncoder passwordEncoder, VerificationTokenRepository verificationTokenRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+
+        this.verificationTokenRepository = verificationTokenRepository;
     }
 
     @Override
@@ -35,8 +42,6 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(1);
-        Role userRole = roleRepository.findByName("ROLE_USER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);
     }
 
@@ -72,6 +77,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user){
         userRepository.save(user);
+    }
+
+    @Override
+    public void createVerificationTokenForUser( User user, String token) {
+        final VerificationToken myToken = new VerificationToken(token, user);
+        verificationTokenRepository.save(myToken);
+    }
+
+    @Override
+    public VerificationToken findByToken(String token) {
+        return verificationTokenRepository.findByToken(token);
+    }
+
+    @Override
+    public void roleForUser(User user) {
+        Role userRole = roleRepository.findByName("ROLE_USER");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        userRepository.save(user);
+    }
+
+    @Override
+    public VerificationToken createToken() {
+        VerificationToken token = new VerificationToken();
+        token.setToken(UUID.randomUUID().toString());
+        return token;
     }
 
 
