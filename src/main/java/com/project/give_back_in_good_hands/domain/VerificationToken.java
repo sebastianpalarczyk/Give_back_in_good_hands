@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 public class VerificationToken {
 
     private static final int EXPIRATION = 60 * 24;
-
+    //private static final int EXPIRATION = 1;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,14 +29,14 @@ public class VerificationToken {
         super();
     }
 
-    public VerificationToken(final String token) {
+    public VerificationToken(String token) {
         super();
 
         this.token = token;
         this.expiryDate = calculateExpiryDate(EXPIRATION);
     }
 
-    public VerificationToken(final String token, final User user) {
+    public VerificationToken(String token, User user) {
         super();
 
         this.token = token;
@@ -84,8 +84,6 @@ public class VerificationToken {
         this.expiryDate = calculateExpiryDate(EXPIRATION);
     }
 
-    //
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -97,7 +95,7 @@ public class VerificationToken {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }

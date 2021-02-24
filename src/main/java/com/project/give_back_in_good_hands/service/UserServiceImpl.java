@@ -14,8 +14,6 @@ import java.util.*;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final String NOREPLY_ADDRESS = "palarczykhsse@gmail.com";
-
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -116,5 +114,20 @@ public class UserServiceImpl implements UserService {
         return token;
     }
 
+    @Override
+    public VerificationToken findByUser(User user){
+        return verificationTokenRepository.findByUser(user);
+    }
+
+
+    @Override
+    public void deleteToken(VerificationToken token) {
+         verificationTokenRepository.delete(token);
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
 
 }

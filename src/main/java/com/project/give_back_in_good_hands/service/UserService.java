@@ -21,4 +21,7 @@ public interface UserService {
     VerificationToken createToken();
     boolean checkToken(VerificationToken token);
     VerificationToken generateNewVerificationToken(String existingVerificationToken);
+    VerificationToken findByUser(User user);
+    void deleteToken(VerificationToken token);
+    User findUserByEmail(String email);
 }

@@ -39,7 +39,7 @@ public class RegisterController {
                         +"Pozdrawiamy,\n"
                         +"Zespół Oddaj w dobre ręce",
                 "/home/sebastian/Pulpit/Regulamin.pdf");
-        return "confirmation-register";
+        return "sent-email";
     }
 
     @RequestMapping(value = "/register/{token}", method = RequestMethod.GET)
@@ -48,10 +48,10 @@ public class RegisterController {
         boolean checkToken = userService.checkToken(verificationToken);
         User user = verificationToken.getUser();
         if(!checkToken){
-            VerificationToken newVerificationToken = userService.generateNewVerificationToken(token);
+            VerificationToken newVerificationToken = userService.generateNewVerificationToken(verificationToken.getToken());
             emailService.sendSimpleMessage(user.getEmail(), "Nowy link aktywacyjny",
                     "Link aktywacyjny:http://localhost:8080/register/"+newVerificationToken.getToken());
-            return "new-confirmation-register";
+            return "sent-new-email";
         }
         userService.roleForUser(user);
         return "redirect:/login";

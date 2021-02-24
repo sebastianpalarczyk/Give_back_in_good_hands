@@ -3,6 +3,7 @@ package com.project.give_back_in_good_hands.web;
 import com.project.give_back_in_good_hands.domain.Donation;
 import com.project.give_back_in_good_hands.domain.Institution;
 import com.project.give_back_in_good_hands.domain.User;
+import com.project.give_back_in_good_hands.domain.VerificationToken;
 import com.project.give_back_in_good_hands.service.DonationService;
 import com.project.give_back_in_good_hands.service.InstitutionService;
 import com.project.give_back_in_good_hands.service.UserService;
@@ -170,6 +171,8 @@ public class AdminController {
     @ResponseBody
     public String deleteUser(@PathVariable Long id){
         User user = userService.findUserById(id);
+        VerificationToken token = userService.findByUser(user);
+        userService.deleteToken(token);
         List<Donation> userDonations = donationService.allDonationsByUser(user);
         userDonations.forEach(donationService::delete);
         userService.delete(user);
