@@ -1,9 +1,7 @@
 package com.project.give_back_in_good_hands.web;
 
-import com.project.give_back_in_good_hands.domain.Donation;
-import com.project.give_back_in_good_hands.domain.Institution;
-import com.project.give_back_in_good_hands.domain.User;
-import com.project.give_back_in_good_hands.domain.VerificationToken;
+import com.project.give_back_in_good_hands.domain.*;
+import com.project.give_back_in_good_hands.service.CategoryService;
 import com.project.give_back_in_good_hands.service.DonationService;
 import com.project.give_back_in_good_hands.service.InstitutionService;
 import com.project.give_back_in_good_hands.service.UserService;
@@ -21,11 +19,14 @@ public class AdminController {
     private final InstitutionService institutionService;
     private final UserService userService;
     private final DonationService donationService;
+    private final CategoryService categoryService;
 
-    public AdminController(InstitutionService institutionService, UserService userService, DonationService donationService, BCryptPasswordEncoder passwordEncoder) {
+    public AdminController(InstitutionService institutionService, UserService userService,
+                           DonationService donationService, CategoryService categoryService) {
         this.institutionService = institutionService;
         this.userService = userService;
         this.donationService = donationService;
+        this.categoryService = categoryService;
     }
 
     @RequestMapping(value = "/home")
@@ -177,6 +178,19 @@ public class AdminController {
         userDonations.forEach(donationService::delete);
         userService.delete(user);
         return "Usunieto "+user.getFirstName();
+    }
+
+    @RequestMapping(value = "/category/add", method = RequestMethod.GET)
+    public String formCategory(Model model){
+        model.addAttribute("category", new Category());
+        return "category-add";
+    }
+
+    @RequestMapping(value = "/category/add", method = RequestMethod.POST)
+    @ResponseBody
+    public String createCategory(@ModelAttribute Category category){
+        categoryService.save(category);
+        return "Zapisano "+category.getName();
     }
 
 }

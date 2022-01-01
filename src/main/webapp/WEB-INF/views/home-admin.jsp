@@ -13,6 +13,7 @@
 <body>
 <a href="http://localhost:8080/admin/institutions">Zarządzanie fundacjami</a><br>
 <a href="http://localhost:8080/admin/institutions/add">Dodaj nową fundację</a><br>
+<a href="http://localhost:8080/admin/category/add">Dodaj nową kategorie</a><br>
 <a href="http://localhost:8080/admin/admins">Zarządzanie administratorami</a><br>
 <a href="http://localhost:8080/admin/add">Dodaj nowego administratora</a><br>
 <a href="http://localhost:8080/admin/users">Zarządznie użytkwnikami</a><br>
